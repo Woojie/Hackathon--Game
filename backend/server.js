@@ -4,47 +4,58 @@ const app = express()
 
 app.listen(8080, () => {
     console.log('Scrabbling on port 8080')
- 
+
 })
 
 
 app.use(express.static('public'))
-let bags = [
+
+let players = [{
+        name: '',
+        score: 0
+
+    },
     {
+        name: '',
+        score: 0
+    }
+]
+
+let bags = [{
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'A',
-        value:  1
+        value: 1
     },
     {
         name: 'B',
@@ -415,3 +426,16 @@ let bags = [
 
 
 
+
+app.get('/', (req, res) => {
+    res.json(bags)
+})
+
+
+app.get('/player1', (req, res) => {
+    res.json(bags)
+})
+
+app.get('/player2', (req, res) => {
+    res.json(bags)
+})

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Header} from 'semantic-ui-react'
 import './App.css';
 import Board from'./Components/Board'
+import Validate from './Components/Validate'
 
 class App extends Component {
   render() {
@@ -9,6 +9,7 @@ class App extends Component {
       <div className="App">
         <Header as='h1'>Urban Scrabble!</Header>
         <Board />
+        <Validate />
       </div>
     );
   }

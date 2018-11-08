@@ -18,9 +18,9 @@ class Validate extends Component {
     search = searchText => {
         axios.get(url + searchText)
         .then (res => {
-            let word = res.data.list[0].word
+            let data = res.data.list
             this.setState({
-               wordExist:  searchText === word ? 'yes' : 'no'
+               wordExist:  data.length > 0 ? 'Yes' : 'No'
             })
         })
     }
