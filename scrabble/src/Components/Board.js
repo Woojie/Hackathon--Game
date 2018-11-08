@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Form, Button, Header } from 'semantic-ui-react'
-import Validate from './Validate'
 import axios from 'axios'
 
 class Board extends Component {
@@ -9,6 +8,17 @@ class Board extends Component {
     searchText: ''
   }
 
+  componentDidMount (){
+    axios.post('http://localhost:8080',{
+      startGame: true
+    }
+    .then(
+      axios.get('http://localhost:8080/player1')
+    ).then((res)=>{
+      console.log(res)
+    })
+    )
+  }
 
 getSearch = e => {
     this.setState({
@@ -27,6 +37,7 @@ search = (searchText) => {
       })
   })
 }
+
 
 
   render(){
