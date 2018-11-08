@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-
+var bodyParser = require('body-parser')
 
 app.listen(8080, () => {
     console.log('Scrabbling on port 8080')
@@ -12,12 +12,14 @@ app.use(express.static('public'))
 
 let players = [{
         name: '',
-        score: 0
+        score: 0,
+        bag: []
 
     },
     {
         name: '',
-        score: 0
+        score: 0,
+        bag: []
     }
 ]
 
@@ -431,7 +433,9 @@ app.get('/', (req, res) => {
     res.json(bags)
 })
 
+app.post('/player1',(req res) => {
 
+})
 app.get('/player1', (req, res) => {
     res.json(bags)
 })
