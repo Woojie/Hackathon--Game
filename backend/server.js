@@ -9,19 +9,9 @@ app.listen(8080, () => {
 
 
 app.use(express.static('public'))
+app.use(bodyParser.json())
 
-let players = [{
-        name: '',
-        score: 0,
-        bag: []
-
-    },
-    {
-        name: '',
-        score: 0,
-        bag: []
-    }
-]
+let players = []
 
 let bags = [{
         name: 'A',
@@ -433,9 +423,9 @@ app.get('/', (req, res) => {
     res.json(bags)
 })
 
-app.post('/player1',(req res) => {
+// app.post('/player1',(req res) => {
 
-})
+// })
 app.get('/player1', (req, res) => {
     res.json(bags)
 })

@@ -10,7 +10,7 @@ class Board extends Component {
   }
 
 
-  getSearch = e => {
+getSearch = e => {
     this.setState({
         searchText: e.target.value
     })
@@ -27,6 +27,7 @@ search = (searchText) => {
       })
   })
 }
+
 
   render(){
     return(
