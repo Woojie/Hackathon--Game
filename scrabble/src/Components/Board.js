@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
-import { Form, Button, Header } from 'semantic-ui-react'
+import { Form, Button, Header, Modal } from 'semantic-ui-react'
 import axios from 'axios'
 
 class Board extends Component {
   state = {
-    wordExist: '',
-    searchText: ''
+    wordExist: true,
+    searchText: '',
+
   }
 
   componentDidMount (){
+
     axios.post('http://localhost:8080',{
       startGame: true
-    }
-    .then(
+    }).then(
+    
       axios.get('http://localhost:8080/player1')
-    ).then((res)=>{
+    .then((res)=>{
       console.log(res)
-    })
-    )
+    }))
+
   }
 
 getSearch = e => {
@@ -33,23 +35,25 @@ search = (searchText) => {
   .then (res => {
       let data = res.data.list
       this.setState({
-         wordExist:  data.length > 0 ? 'Yes' : 'No'
+         wordExist:  data.length > 0 ? true : false
       })
   })
 }
-
-
-
   render(){
+    let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
     return(
       <div>
       <Form>
         <Form.Field>
-          <label>Write your word down!</label>
-          <input type='text'  onChange={this.getSearch} />
+          <label>Write your word down!</label><input type='text' error onChange={this.getSearch} />
+          <Modal trigger={<Button type='submit' onClick={() =>this.search(this.state.searchText)}>Click</Button>} basic>
+            <Modal.Content>
+              {errorMsg}
+            </Modal.Content>
+          </Modal>
 
         </Form.Field>
-        <Button type='submit' onClick={() =>this.search(this.state.searchText)}>Click</Button>
+        
       </Form>
   
       <Header as='h1'>{this.state.text}</Header>
