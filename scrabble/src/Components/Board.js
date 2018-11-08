@@ -1,45 +1,34 @@
 import React, { Component } from 'react'
-import { Grid, Segment } from 'semantic-ui-react'
+import { Form, Button, Header } from 'semantic-ui-react'
+
 
 class Board extends Component {
-
-  
-  boardGame = (actualBoard, style) => {
-    let rowsLength = 10
-    let columnLength = 10
-    for(let i = 0; i <= rowsLength-1; i++){
-      actualBoard[i] = []
-      for (let j = 0; j <= columnLength-1; j++ ){
-      actualBoard[i][j] = <Grid.Column style={style}></Grid.Column>
-      }
-    }
-    return actualBoard
+  state = {
+    text: ''
   }
+  textInput = e => {
+    this.setState({
+      text:e.target.value
+    })
+  }
+
   render(){
+    
+    return(
+      <div>
+      <Form>
+        <Form.Field>
+          <label>Write your word down!</label>
+          <input type='text'  onChange={this.textInput} />
+          <Button type='submit'>Submit</Button>
 
-  let style= {
-    border: "solid .1px black"
+        </Form.Field>
+      </Form>
+  
+      <Header as='h1'>{this.state.text}</Header>
+      </div>
+    )
   }
-
-  let actualBoard= []
-  this.boardGame(actualBoard, style)
-  let newBoard = actualBoard.map((elem)=> (
-  <Grid.Row>
-  {elem}
-  </Grid.Row>
-  ))
-
-
-return (
-  <div>
-    <Segment raised>
-  <Grid  celled='internally' centered>
-    {newBoard}
-    </Grid>
-    </Segment>
-  </div>
-)
-}
 }
 
 export default Board
