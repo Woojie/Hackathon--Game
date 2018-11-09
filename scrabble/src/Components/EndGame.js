@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Header, Modal, Segment, Button, Icon } from 'semantic-ui-react'
 import axios from 'axios'
 

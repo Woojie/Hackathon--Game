@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Header, Form, Button, Modal, Divider, Icon, Segment, Loader, Dimmer} from 'semantic-ui-react'
+import {Header, Form, Button, Modal, Divider, Icon, Segment, Popup, Loader, Dimmer} from 'semantic-ui-react'
 import axios from 'axios'
 import PlayerOneTiles from './PlayerOneTiles'
 import Score from'./Score'
 import EndGame from'./EndGame'
+import Tutorial from './tutorial'
 
 class Board extends Component {
   state = {
@@ -218,11 +219,9 @@ clearData = () => {
             {<Button className='bounceInLeft'  size='large' 
             inverted color='green' 
             type='submit' 
-            onClick={this.handleModalOpen} 
-            >
+            onClick={this.handleModalOpen} >
             Submit
             </Button>
-
           } closeIcon>
             <Modal.Content>
                 <center><Header as='h1'>{errorMsg}</Header></center>
@@ -249,7 +248,11 @@ clearData = () => {
       >
           <EndGame  player1Count={player1Count} player2Count={player2Count} />
       </Modal>
-
+      <Popup 
+      trigger={<Button floated="left">Hello</Button>}
+      position='bottom-left' >
+          <Tutorial />
+      </Popup>
 
       </div>
     )
