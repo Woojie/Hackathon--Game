@@ -200,9 +200,9 @@ clearData = () => {
 
     return(
       <div>
-      <Score currentPlayer={this.state.currentPlayer} player1Count={this.state.player1Count} player2Count={this.state.player2Count} />
+      <Score currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} bag={bag} />
       
-      <PlayerOneTiles player={this.state.player} player1={this.state.player1} player2={this.state.player2} textResult={this.state.textResult} addText={this.addText} currentPlayer={this.state.currentPlayer} deleteText={this.deleteText}/> 
+      <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
  
       <Divider hidden />
       <Form onSubmit={this.search}>
