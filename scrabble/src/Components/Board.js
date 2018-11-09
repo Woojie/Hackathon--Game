@@ -94,10 +94,9 @@ this.state.textResult.forEach((elem)=>(
 axios.get(`http://api.urbandictionary.com/v0/define?term=${newAlpha}`)
 .then (res => {
     let data = res.data.list
+    let newPlayer = this.state.currentPlayer === 'player1' ? 'player2' : 'player1'
     this.setState({
        wordExist:  data.length > 0 ? true : false,
-
-
     }, ()=>{
       if (this.state.wordExist){
         this.ifTrue(res.data.list[0])
@@ -106,14 +105,17 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=${newAlpha}`)
           this.setState({
             player1: this.state.player1.concat(this.state.textResult),
             textResult:[],
-          })
+            currentPlayer: newPlayer,
+            player1Count: this.state.player1Count < 0 ? 0 : Math.round(this.state.player1Count - (this.state.player1Count * 0.5))
+          }, ()=>{this.clearData()})
         }else{
           this.setState({
             player2: this.state.player2.concat(this.state.textResult),
             textResult:[],
-          })
+            currentPlayer: newPlayer,
+            player2Count: this.state.player2Count < 0 ? 0 : Math.round(this.state.player2Count - (this.state.player2Count * 0.5))
+          }, ()=>{this.clearData()})
         }
-
       }
     })
 })
@@ -123,7 +125,7 @@ ifTrue= (data) =>{
   let newPlayer = this.state.currentPlayer === 'player1' ? 'player2' : 'player1'
   let total = 0
   this.state.textResult.forEach((elem)=>(
-    total = total+ elem.value
+    total = total + elem.value
   ))
   if (this.state.currentPlayer ==='player1'){
     this.setState({
@@ -136,11 +138,9 @@ ifTrue= (data) =>{
       info: data,
       currentPlayer: newPlayer,
       player2Count: this.state.player2Count + total
-    }, () =>{this.clearData()})
-  }
-  }
-
-
+    }, () =>{this.clearData()}
+    )}
+}
 
 clearData = () => {
   let {currentPlayer, bag} = this.state
@@ -166,13 +166,10 @@ clearData = () => {
   })
 }
 
-
   handleModalOpen = () => this.setState({ modalOpen: true })
 
   handleModalClose = () => {
-
     this.setState({ modalOpen: false }, ()=>{
-
     }) }
 
 
@@ -182,7 +179,6 @@ clearData = () => {
     let visible = {
       display: this.state.wordExist ? '': 'none'
     }
-     
 
     return(
       <div>
@@ -190,7 +186,6 @@ clearData = () => {
       
       <PlayerOneTiles player={this.state.player} player1={this.state.player1} player2={this.state.player2} textResult={this.state.textResult} addText={this.addText} currentPlayer={this.state.currentPlayer} deleteText={this.deleteText}/> 
  
-
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
@@ -205,9 +200,9 @@ clearData = () => {
             >
               Submit
             </Button>
+
           } closeIcon>
             <Modal.Content>
-  
                 <center><Header as='h1'>{errorMsg}</Header></center>
                 <Segment raised style={visible}>
                  <p><b>Your word means:</b>{this.state.info.definition}</p>
