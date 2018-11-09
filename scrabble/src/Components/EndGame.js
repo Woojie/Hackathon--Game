@@ -1,7 +1,7 @@
 import React from 'react'
 import {Header, Modal, Segment, Button, Icon } from 'semantic-ui-react'
 import axios from 'axios'
-
+import '../App.css';
 const EndGame = ({player1Count, player2Count}) =>{
   axios.post('http://localhost:8080/scores', {
     player1Score: player1Count,
@@ -11,16 +11,18 @@ const EndGame = ({player1Count, player2Count}) =>{
   return(
   <div>
   <Modal.Content>
-  <center><Header as='h1'>Game Over</Header></center>
-  <Segment raised >
-    <Header as='h3'>{winner} has won!!</Header>
+  {/* <center><Header as='h1' id="gameOver" >Game Over!!</Header></center> */}
+<img src="./images/gameover.jpg" alt="" width="900" height="400"/>
+  <Segment raised > 
+  <center>
+    <Header as='h3' id="winnerStyle">Yippie!! {winner} has won!!</Header>
+    <Header as='h4' id="winnerStyle1">Mathew's score: {player1Count} & Neha's score: {player2Count} </Header>
+    </center>
   </Segment>
-</Modal.Content>
-<Modal.Actions>
-<Button floated='right' color='green' onClick={()=>window.location.reload()} inverted>
+ <Button size='large' floated='right' color='green' onClick={()=>window.location.reload()} inverted>
 <Icon name='checkmark' /> Play Again
 </Button>
-</Modal.Actions>
+</Modal.Content>
 </div>
 )
 }

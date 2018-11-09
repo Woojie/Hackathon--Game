@@ -203,16 +203,13 @@ clearData = () => {
     let visible = {
       display: wordExist ? '': 'none'
     }
-    let bonusTurn = turn === 3 ||turn === 4 || turn ===10 ||turn=== 11 ? <Header inverted color="blue" as='h1'>DOUBLE POINTS</Header> : ""
-    let tripleTurn = turn === 7 || turn === 8 ? <Header inverted color="blue" as='h1'>TRIPLE POINTS</Header> : ""
-
 
     return(
       <div>
-      <Score turn={turn} bag={bag} currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} />
-      {bonusTurn}
-      {tripleTurn}
+      <Score currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} bag={bag} />
+      
       <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
+ 
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>

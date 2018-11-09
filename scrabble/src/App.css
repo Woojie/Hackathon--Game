@@ -4,9 +4,18 @@
 #backgroundImage{
   background-image: url("/images/scrabble.jpg");
   background-size: 1350px 1000px;
- 
-
 }
+
+#winnerStyle{
+  font-family: cursive;
+  font-size:35px;
+  color: blueviolet;
+  }
+  #winnerStyle1{
+    font-family: cursive;
+    font-size:30px;
+    color: blueviolet;
+    }
 .container{
   margin: 20px 20px 0 20px;
   padding:100px;
@@ -16,7 +25,11 @@
 font-family: cursive;
   color: rgb(209, 116, 116);
   font-size: 50px;
+  
 }
+
+
+
 .nameHeading{
 font-family: cursive;
 font-size: 25px;
@@ -29,7 +42,11 @@ color: black;
   font-size: 30px;
 }
 
-
+#gameOver{
+  font-family: cursive;
+  font-size: 30px;
+  color: red;
+}
 
 
 
