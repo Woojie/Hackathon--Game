@@ -249,7 +249,7 @@ clearData = () => {
           <EndGame  player1Count={player1Count} player2Count={player2Count} />
       </Modal>
       <Popup 
-      trigger={<Button floated="left">Hello</Button>}
+      trigger={<Button floated="left">?</Button>}
       position='bottom-left' >
           <Tutorial />
       </Popup>
