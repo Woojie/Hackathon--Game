@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Modal, Divider, Icon} from 'semantic-ui-react'
+import {Header, Form, Button, Modal, Divider, Icon, Segment} from 'semantic-ui-react'
 import axios from 'axios'
 import PlayerOneTiles from './PlayerOneTiles'
 
@@ -8,6 +8,8 @@ class Board extends Component {
     wordExist: true,
     player: [],
     textResult: [],
+    info: "",
+    loading: true
 }
 
   componentDidMount (){
@@ -64,7 +66,8 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=` + newAlpha)
 
     }, ()=>{
       if (this.state.wordExist){
-        this.ifTrue()
+        this.ifTrue(res.data.list[0])
+
 
       }else{
         this.setState({
@@ -76,8 +79,12 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=` + newAlpha)
 })
 }
 
-ifTrue= () =>{
-  console.log(this.state.textResult)
+ifTrue= (data) =>{
+  this.setState({
+    info: data.definition,
+    loading: false
+  })
+console.log(data)
   let total = 0
   this.state.textResult.forEach((elem)=>(
     total = total+ elem.value
@@ -94,20 +101,25 @@ ifTrue= () =>{
     (<Button color='green' inverted onClick={()=>window.location.reload()}>
     <Icon name='checkmark' /> Ok
   </Button>) : ""
+     let newText = this.state.info
+
     return(
       <div>
       <PlayerOneTiles player={this.state.player} textResult={this.state.textResult} addText={this.addText} deleteText={this.deleteText}/>  
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
-          <Modal trigger={<Button size='large' inverted color='green' type='submit' >Submit</Button>} >
-            <Modal.Content>
-              <center><h1>{errorMsg}</h1></center>
-            </Modal.Content>
-          <Modal.Actions>
-            {button}
-          </Modal.Actions>
-          </Modal>
+        <Modal trigger={<Button size='large' inverted color='green' type='submit' >Submit</Button>} >
+        <Modal.Content>
+          <center><Header as='h1'>{errorMsg}</Header></center>
+          <p><b>Your word means:</b> <Segment raised>{newText}</Segment></p>
+        </Modal.Content>
+      <Modal.Actions>
+        {button}
+      </Modal.Actions>
+      </Modal>
+          
+
         </Form.Field>
       </Form>
   

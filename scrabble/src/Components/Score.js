@@ -10,7 +10,7 @@ state={
 componentDidMount(){
   axios.get('http://localhost:8080/scores')
   .then((res)=>{
-console.log(res.data)
+
     this.setState({player1 : res.data.player1, player2:res.data.player2})
   })
 }
