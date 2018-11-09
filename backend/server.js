@@ -3,18 +3,13 @@ const app = express()
 var bodyParser = require('body-parser')
 const cors = require('cors')
 
-
-
 app.listen(8080, () => {
     console.log('Scrabbling on port 8080')
-
 })
-
 
 app.use(express.static('public'))
 app.use(bodyParser.json())
 app.use(cors())
-
 
 let bag = [{
     name: 'A',
