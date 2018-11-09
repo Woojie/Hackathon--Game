@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Modal, Divider} from 'semantic-ui-react'
+import { Form, Button, Modal, Divider, Icon} from 'semantic-ui-react'
 import axios from 'axios'
 import PlayerOneTiles from './PlayerOneTiles'
 
@@ -51,9 +51,6 @@ this.setState({
 })
 }
 
-
-
-
 search = () => {
   let newAlpha= ""
 this.state.textResult.forEach((elem)=>(
@@ -68,6 +65,7 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=` + newAlpha)
     }, ()=>{
       if (this.state.wordExist){
         this.ifTrue()
+
       }else{
         this.setState({
           player: this.state.player.concat(this.state.textResult),
@@ -86,14 +84,16 @@ ifTrue= () =>{
   ))
   axios.post('http://localhost:8080/scores', {
       score: total
-    }).then(
-
-  window.location.reload())
-}
+    })
+  }
 
   render(){
-    
+  
     let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
+    let button = this.state.wordExist  ? 
+    (<Button color='green' inverted onClick={()=>window.location.reload()}>
+    <Icon name='checkmark' /> Ok
+  </Button>) : ""
     return(
       <div>
       <PlayerOneTiles player={this.state.player} textResult={this.state.textResult} addText={this.addText} deleteText={this.deleteText}/>  
@@ -104,6 +104,9 @@ ifTrue= () =>{
             <Modal.Content>
               <center><h1>{errorMsg}</h1></center>
             </Modal.Content>
+          <Modal.Actions>
+            {button}
+          </Modal.Actions>
           </Modal>
         </Form.Field>
       </Form>
