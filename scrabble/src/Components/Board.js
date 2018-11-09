@@ -219,8 +219,9 @@ clearData = () => {
             {<Button className='bounceInLeft'  size='large' 
             inverted color='green' 
             type='submit' 
+            disabled={textResult.length < 3}
             onClick={this.handleModalOpen} >
-            Submit
+            {textResult.length < 3 ? 'Enter more letters!' :'Submit'}
             </Button>
           } closeIcon>
             <Modal.Content>
@@ -249,11 +250,15 @@ clearData = () => {
           <EndGame  player1Count={player1Count} player2Count={player2Count} />
       </Modal>
       <Popup 
-      trigger={<Button floated="left">Hello</Button>}
+      trigger={<Button inverted basic color='yellow' floated="left">Tutorial</Button>}
       position='bottom-left' >
           <Tutorial />
       </Popup>
-
+      <Popup 
+      trigger={<Button inverted basic color='purple' floated="left">High Scores</Button>}
+      position='bottom-left' >
+          <Tutorial />
+      </Popup>
       </div>
     )
   }
