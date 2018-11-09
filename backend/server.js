@@ -42,7 +42,7 @@ app.post('/', (req, res) => {
 })
 
 app.post('/scores', (req, res) => {
-
+  console.log(req)
 })
 
 app.get('/player1', (req, res) => {

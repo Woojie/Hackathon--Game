@@ -15,7 +15,9 @@ class Board extends Component {
     player1: [],
     player2: [],
     player1Count: 0,
-    player2Count: 0
+    player2Count: 0,
+    total: 0 , 
+    turn: 0
 }
 
   componentDidMount (){
@@ -122,25 +124,45 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=${newAlpha}`)
 }
 
 ifTrue= (data) =>{
+  let {turn} = this.state
   let newPlayer = this.state.currentPlayer === 'player1' ? 'player2' : 'player1'
   let total = 0
   this.state.textResult.forEach((elem)=>(
     total = total + elem.value
   ))
+  if(turn === 3 || turn === 4 || turn === 10 || turn ===11){
+    total = total * 2
+  }else if(turn === 7 || turn === 8){
+    total =total*3
+  }
   if (this.state.currentPlayer ==='player1'){
     this.setState({
       info: data,
       currentPlayer: newPlayer,
-      player1Count: this.state.player1Count + total
-    }, ()=>{this.clearData()})
+      player1Count: this.state.player1Count + total,
+      total
+    }, ()=>{
+      
+      this.clearData()})
   }else{
     this.setState({
       info: data,
       currentPlayer: newPlayer,
+<<<<<<< HEAD
       player2Count: this.state.player2Count + total
     }, () =>{this.clearData()}
     )}
 }
+=======
+      player2Count: this.state.player2Count + total,
+      total,
+    }, () =>{
+      this.clearData()})
+  }
+  }
+
+
+>>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
 
 clearData = () => {
   let {currentPlayer, bag} = this.state
@@ -150,7 +172,8 @@ clearData = () => {
     newPlayer = newPlayer.concat(bag.splice(Math.floor(Math.random()*bag.length),1))}
     this.setState({
       player2: newPlayer,
-      textResult: []
+      textResult: [],
+      turn: this.state.turn+1
     })
   }else{
     let newPlayer = []
@@ -158,27 +181,31 @@ clearData = () => {
     newPlayer = newPlayer.concat(bag.splice(Math.floor(Math.random()*bag.length),1))}
     this.setState({
       player1: newPlayer,
-      textResult: []
+      textResult: [],
+      turn: this.state.turn+1
     })
   }
-  axios.post('http://localhost8080', {
-
-  })
 }
 
   handleModalOpen = () => this.setState({ modalOpen: true })
 
+<<<<<<< HEAD
   handleModalClose = () => {
     this.setState({ modalOpen: false }, ()=>{
     }) }
+=======
+  handleModalClose = () => {this.setState({ modalOpen: false }, ()=>{})}
+>>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
 
 
 
   render(){
-    let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
+    const {bag, turn, wordExist, currentPlayer, player1, player2, total, player1Count, player2Count, modalOpen, info, textResult} = this.state
+    let errorMsg = wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
     let visible = {
-      display: this.state.wordExist ? '': 'none'
+      display: wordExist ? '': 'none'
     }
+<<<<<<< HEAD
 
     return(
       <div>
@@ -186,14 +213,26 @@ clearData = () => {
       
       <PlayerOneTiles player={this.state.player} player1={this.state.player1} player2={this.state.player2} textResult={this.state.textResult} addText={this.addText} currentPlayer={this.state.currentPlayer} deleteText={this.deleteText}/> 
  
+=======
+    let bonusTurn = turn === 3 ||turn === 4 || turn ===10 ||turn=== 11 ? <Header inverted color="blue" as='h1'>DOUBLE POINTS</Header> : ""
+    let tripleTurn = turn === 7 || turn === 8 ? <Header inverted color="blue" as='h1'>TRIPLE POINTS</Header> : ""
+
+
+    return(
+      <div>
+      <Score turn={turn} bag={bag} currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} />
+      {bonusTurn}
+      {tripleTurn}
+      <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
+>>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
           <Modal  
-            open={this.state.modalOpen}
+            open={modalOpen}
             onClose={this.handleModalClose}
             trigger=
-            {<Button size='large' 
+            {<Button className='bounceInLeft'  size='large' 
             inverted color='green' 
             type='submit' 
             onClick={this.handleModalOpen} 
@@ -205,8 +244,9 @@ clearData = () => {
             <Modal.Content>
                 <center><Header as='h1'>{errorMsg}</Header></center>
                 <Segment raised style={visible}>
-                 <p><b>Your word means:</b>{this.state.info.definition}</p>
-                  <p><b>Example of Usage:</b>{this.state.info.example}</p>
+                 <p><b>Your word means:</b>{info.definition}</p>
+                  <p><b>Example of Usage:</b>{info.example}</p>
+                  <p>You have scored {total} points!</p>
                 </Segment>
             </Modal.Content>
             <Modal.Actions>
