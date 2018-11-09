@@ -67,8 +67,6 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=` + newAlpha)
     }, ()=>{
       if (this.state.wordExist){
         this.ifTrue(res.data.list[0])
-
-
       }else{
         this.setState({
           player: this.state.player.concat(this.state.textResult),
@@ -95,12 +93,11 @@ console.log(data)
   }
 
   render(){
-  
     let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
     let button = this.state.wordExist  ? 
     (<Button color='green' inverted onClick={()=>window.location.reload()}>
     <Icon name='checkmark' /> Ok
-  </Button>) : ""
+    </Button>) : ""
      let newText = this.state.info
 
     return(
@@ -109,27 +106,23 @@ console.log(data)
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
-        <Modal trigger={<Button size='large' inverted color='green' type='submit' >Submit</Button>} >
-        <Modal.Content>
-          <center><Header as='h1'>{errorMsg}</Header></center>
-          <p><b>Your word means:</b> <Segment raised>{newText}</Segment></p>
-        </Modal.Content>
-      <Modal.Actions>
-        {button}
-      </Modal.Actions>
-      </Modal>
-          
-
+          <Modal trigger={<Button size='large' inverted color='green' type='submit' >Submit</Button>} >
+            <Modal.Content>
+              {this.state.loading ? <div>Loading...</div> : (<div>
+                <center><Header as='h1'>{errorMsg}</Header></center>
+                <p><b>Your word means:</b> <Segment raised>{newText}</Segment></p>
+              </div>
+              )}
+            </Modal.Content>
+            <Modal.Actions>
+              {button}
+            </Modal.Actions>
+          </Modal>
         </Form.Field>
       </Form>
-  
-
       </div>
     )
   }
 }
-
-
-
 
 export default Board

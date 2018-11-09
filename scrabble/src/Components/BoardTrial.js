@@ -6,7 +6,7 @@ class BoardTrial extends Component {
 
   }
   onBoardClick = (i, j) =>{
-    console.log(`hello ${i}+${j}`)
+    console.log(`hello ${i} + ${j}`)
   }
 
   boardGame = (actualBoard) => {
@@ -22,8 +22,6 @@ class BoardTrial extends Component {
   }
   render(){
 
-
-
   let actualBoard= []
   this.boardGame(actualBoard)
   actualBoard[2][3] = <Grid.Column><h3>S</h3></Grid.Column>
@@ -33,7 +31,6 @@ class BoardTrial extends Component {
   </Grid.Row>
   ))
 
-
 return (
   <div>
     <Segment raised>
@@ -42,8 +39,7 @@ return (
     </Grid>
     </Segment>
   </div>
-)
-}
+)}
 }
 
 export default BoardTrial
