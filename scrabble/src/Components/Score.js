@@ -25,24 +25,24 @@ render(){
   return(
     <div>
     <Statistic.Group>
-      <Statistic color={player1Color}>
+      <Statistic inverted color={player1Color}>
         <Statistic.Value>{this.props.player1Count}</Statistic.Value>
         <Statistic.Label>{player1}</Statistic.Label>
       </Statistic>
-      <Statistic color={player2Color}>
+      <Statistic inverted color={player2Color}>
         <Statistic.Value>{this.props.player2Count}</Statistic.Value>
         <Statistic.Label>{player2}</Statistic.Label>
       </Statistic>
-      <Statistic floated='right' style={style}> 
+      <Statistic inverted floated='right' style={style}> 
         <Statistic.Value>{this.props.turn}</Statistic.Value>
         <Statistic.Label>Turn</Statistic.Label>
       </Statistic>
-      <Statistic floated='right'> 
+      <Statistic inverted floated='right'> 
         <Statistic.Value>{this.props.bag.length}</Statistic.Value>
         <Statistic.Label># of Tiles Left</Statistic.Label>
       </Statistic>
     </Statistic.Group>
-    <Header as='h2'>{this.props.currentPlayer === 'player1' ?player1:player2}'s turn.</Header>
+    <Header  inverted as='h2'>{this.props.currentPlayer === 'player1' ?player1:player2}'s turn.</Header>
 
     
     </div>
