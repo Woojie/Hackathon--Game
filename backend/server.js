@@ -16,11 +16,13 @@ app.use(cors())
 let users = [
   {
     name: 'Mathew',
+    highScore:0,
     score: []
   },
 
 {
     name: 'Neha',
+    highScore:0,
     score: []
   }
 
@@ -34,15 +36,22 @@ app.get('/', (req, res) => {
 
 app.get('/scores', (req, res) => {
   res.json(users)
+
 })
 
 
 app.post('/', (req, res) => {
   console.log(req.body.player)
+
 })
 
 app.post('/scores', (req, res) => {
-  console.log(req.body)
+
+  users[0].score.push(req.body.player1Score)
+  users[0].highScore = Math.max.apply(null, users[0].score)
+  users[1].score.push(req.body.player2Score)
+  users[1].highScore = Math.max.apply(null, users[1].score)
+
 })
 
 app.get('/player1', (req, res) => {
