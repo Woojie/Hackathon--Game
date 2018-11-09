@@ -203,11 +203,14 @@ clearData = () => {
     let visible = {
       display: wordExist ? '': 'none'
     }
+    let bonusTurn = turn === 3 ||turn === 4 || turn ===10 ||turn=== 11 ? <Header inverted color="blue" as='h1'>DOUBLE POINTS</Header> : ""
+    let tripleTurn = turn === 7 || turn === 8 ? <Header inverted color="blue" as='h1'>TRIPLE POINTS</Header> : ""
 
     return(
       <div>
       <Score currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} bag={bag} turn={turn} />
-      
+      {bonusTurn}
+      {tripleTurn}
       <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
  
       <Divider hidden />
@@ -253,12 +256,12 @@ clearData = () => {
       </Modal>
       <Popup 
       trigger={<Button inverted basic color='yellow' floated="left">Tutorial</Button>}
-      position='bottom-left' >
+      position='bottom left' >
           <Tutorial />
       </Popup>
       <Popup 
       trigger={<Button inverted basic color='purple' floated="left">High Scores</Button>}
-      position='bottom-left' >
+      position='bottom left' >
           <HighScores />
       </Popup>
       </div>
