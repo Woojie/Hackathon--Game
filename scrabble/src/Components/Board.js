@@ -148,21 +148,10 @@ ifTrue= (data) =>{
     this.setState({
       info: data,
       currentPlayer: newPlayer,
-<<<<<<< HEAD
       player2Count: this.state.player2Count + total
     }, () =>{this.clearData()}
     )}
 }
-=======
-      player2Count: this.state.player2Count + total,
-      total,
-    }, () =>{
-      this.clearData()})
-  }
-  }
-
-
->>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
 
 clearData = () => {
   let {currentPlayer, bag} = this.state
@@ -205,7 +194,6 @@ clearData = () => {
     let visible = {
       display: wordExist ? '': 'none'
     }
-<<<<<<< HEAD
 
     return(
       <div>
@@ -213,18 +201,6 @@ clearData = () => {
       
       <PlayerOneTiles player={this.state.player} player1={this.state.player1} player2={this.state.player2} textResult={this.state.textResult} addText={this.addText} currentPlayer={this.state.currentPlayer} deleteText={this.deleteText}/> 
  
-=======
-    let bonusTurn = turn === 3 ||turn === 4 || turn ===10 ||turn=== 11 ? <Header inverted color="blue" as='h1'>DOUBLE POINTS</Header> : ""
-    let tripleTurn = turn === 7 || turn === 8 ? <Header inverted color="blue" as='h1'>TRIPLE POINTS</Header> : ""
-
-
-    return(
-      <div>
-      <Score turn={turn} bag={bag} currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} />
-      {bonusTurn}
-      {tripleTurn}
-      <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
->>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
