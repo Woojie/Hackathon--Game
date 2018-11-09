@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Header, Form, Button, Modal, Divider, Icon, Segment} from 'semantic-ui-react'
+import {Header, Form, Button, Modal, Divider, Icon, Segment, Loader, Dimmer} from 'semantic-ui-react'
 import axios from 'axios'
 import PlayerOneTiles from './PlayerOneTiles'
 import Score from'./Score'
+import EndGame from'./EndGame'
 
 class Board extends Component {
   state = {
@@ -17,7 +18,8 @@ class Board extends Component {
     player1Count: 0,
     player2Count: 0,
     total: 0 , 
-    turn: 0
+    turn: 0,
+    loading: true,
 }
 
   componentDidMount (){
@@ -27,14 +29,16 @@ class Board extends Component {
       for (let i = 0 ;i< 7; i++){
       newPlayer = newPlayer.concat(bag.splice(Math.floor(Math.random()*bag.length),1))}
       this.setState({
-        player1: newPlayer
+        player1: newPlayer,
+        loading: false
       })
     }else{
       let newPlayer = []
       for (let i = 0 ;i< 7; i++){
       newPlayer = newPlayer.concat(bag.splice(Math.floor(Math.random()*bag.length),1))}
       this.setState({
-        player2: newPlayer
+        player2: newPlayer,
+        loading: false
       })
     }
     
@@ -89,6 +93,9 @@ if(this.state.currentPlayer ==='player1'){
 }
 
 search = () => {
+  this.setState({
+    loading: true
+  })
   let newAlpha= ""
 this.state.textResult.forEach((elem)=>(
   newAlpha = newAlpha + elem.name
@@ -98,7 +105,7 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=${newAlpha}`)
     let data = res.data.list
     let newPlayer = this.state.currentPlayer === 'player1' ? 'player2' : 'player1'
     this.setState({
-       wordExist:  data.length > 0 ? true : false,
+       wordExist:  data.length > 0 ? true : false,loading: false
     }, ()=>{
       if (this.state.wordExist){
         this.ifTrue(res.data.list[0])
@@ -108,14 +115,14 @@ axios.get(`http://api.urbandictionary.com/v0/define?term=${newAlpha}`)
             player1: this.state.player1.concat(this.state.textResult),
             textResult:[],
             currentPlayer: newPlayer,
-            player1Count: this.state.player1Count < 0 ? 0 : Math.round(this.state.player1Count - (this.state.player1Count * 0.5))
+            player1Count: this.state.player1Count < 0 ? 0 : Math.round(this.state.player1Count - (this.state.player1Count * 0.25))
           }, ()=>{this.clearData()})
         }else{
           this.setState({
             player2: this.state.player2.concat(this.state.textResult),
             textResult:[],
             currentPlayer: newPlayer,
-            player2Count: this.state.player2Count < 0 ? 0 : Math.round(this.state.player2Count - (this.state.player2Count * 0.5))
+            player2Count: this.state.player2Count < 0 ? 0 : Math.round(this.state.player2Count - (this.state.player2Count * 0.25))
           }, ()=>{this.clearData()})
         }
       }
@@ -140,7 +147,7 @@ ifTrue= (data) =>{
       info: data,
       currentPlayer: newPlayer,
       player1Count: this.state.player1Count + total,
-      total
+      total,
     }, ()=>{
       
       this.clearData()})
@@ -178,19 +185,15 @@ clearData = () => {
 
   handleModalOpen = () => this.setState({ modalOpen: true })
 
-<<<<<<< HEAD
   handleModalClose = () => {
     this.setState({ modalOpen: false }, ()=>{
     }) }
-=======
-  handleModalClose = () => {this.setState({ modalOpen: false }, ()=>{})}
->>>>>>> 1d9c784822b3e733f5697e13f7c0abffb1409330
 
 
 
   render(){
-    const {bag, turn, wordExist, currentPlayer, player1, player2, total, player1Count, player2Count, modalOpen, info, textResult} = this.state
-    let errorMsg = wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
+    const {bag, turn, wordExist, loading, currentPlayer, player1, player2, total, player1Count, player2Count, modalOpen, info, textResult} = this.state
+    let errorMsg = wordExist ? 'Great Word!' : 'Oops Word does not exist, You lose 25% of your points and your turn is lost :(!'
     let visible = {
       display: wordExist ? '': 'none'
     }
@@ -204,8 +207,9 @@ clearData = () => {
       <Divider hidden />
       <Form onSubmit={this.search}>
         <Form.Field>
-          <Modal  
-            open={modalOpen}
+          {loading ? <Dimmer active><Loader /></Dimmer>:(
+            <Modal  
+            open={modalOpen} 
             onClose={this.handleModalClose}
             trigger=
             {<Button className='bounceInLeft'  size='large' 
@@ -213,7 +217,7 @@ clearData = () => {
             type='submit' 
             onClick={this.handleModalOpen} 
             >
-              Submit
+            Submit
             </Button>
 
           } closeIcon>
@@ -231,8 +235,19 @@ clearData = () => {
               </Button>
             </Modal.Actions>
           </Modal>
+          )}
+          
         </Form.Field>
       </Form>
+
+
+      <Modal
+        open={bag.length ===0 && modalOpen===false}
+      >
+          <EndGame  player1Count={player1Count} player2Count={player2Count} />
+      </Modal>
+
+
       </div>
     )
   }

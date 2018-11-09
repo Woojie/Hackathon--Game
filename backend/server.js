@@ -15,7 +15,7 @@ app.use(cors())
 
 let users = [
   {
-    name: 'Wooj',
+    name: 'Mathew',
     score: []
   },
 
@@ -42,7 +42,7 @@ app.post('/', (req, res) => {
 })
 
 app.post('/scores', (req, res) => {
-  console.log(req)
+  console.log(req.body)
 })
 
 app.get('/player1', (req, res) => {
