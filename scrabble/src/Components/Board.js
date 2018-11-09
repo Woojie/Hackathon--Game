@@ -6,76 +6,89 @@ import PlayerOneTiles from './PlayerOneTiles'
 class Board extends Component {
   state = {
     wordExist: true,
-    searchText: '',
-    player1: [],
-    textResult: []
+    player: [],
+    textResult: [],
 }
-
-  
 
   componentDidMount (){
 
-    axios.post('http://localhost:8080',{
-      startGame: true
-    }).then(
-  
-      axios.get('http://localhost:8080/player1')
+    axios.post('http://localhost:8080')
+    .then( axios.get('http://localhost:8080/player1')
       .then (res => {
           this.setState({
-              player1: res.data
+              player
+              : res.data
           })
       })
     )
   }
 
-  
 deleteText = (name, score, index) =>{
   let obj = {
       name: name,
-      score: score
+      value: score
   }
   let newHand = this.state.textResult
   newHand.splice(index, 1)
 
 this.setState({
   textResult: newHand,
-  player1: this.state.player1.concat(obj)
+  player: this.state.player.concat(obj)
 })
-
 }
 
 addText = (name, score, index ) =>{
   let obj = {
       name: name,
-      score: score
+      value: score
   }
-  let newHand = this.state.player1
+  let newHand = this.state.player
   newHand.splice(index, 1)
 
 this.setState({
-  player1: newHand,
+  player: newHand,
   textResult: this.state.textResult.concat(obj)
 })
 }
 
-getSearch = e => {
+
+
+
+search = () => {
+  let newAlpha= ""
+this.state.textResult.forEach((elem)=>(
+  newAlpha = newAlpha + elem.name
+))
+axios.get(`http://api.urbandictionary.com/v0/define?term=` + newAlpha)
+.then (res => {
+    let data = res.data.list
     this.setState({
-        searchText: e.target.value
+       wordExist:  data.length > 0 ? true : false,
+
+    }, ()=>{
+      if (this.state.wordExist){
+        this.ifTrue()
+      }else{
+        this.setState({
+          player: this.state.player.concat(this.state.textResult),
+          textResult:[]
+        })
+      }
     })
+})
 }
 
-search = (searchText) => {
+ifTrue= () =>{
+  console.log(this.state.textResult)
+  let total = 0
+  this.state.textResult.forEach((elem)=>(
+    total = total+ elem.value
+  ))
+  axios.post('http://localhost:8080/scores', {
+      score: total
+    }).then(
 
-
-
-  const url = 'http://api.urbandictionary.com/v0/define?term='
-  axios.get(url + searchText)
-  .then (res => {
-      let data = res.data.list
-      this.setState({
-         wordExist:  data.length > 0 ? true : false
-      })
-  })
+  window.location.reload())
 }
 
   render(){
@@ -83,11 +96,11 @@ search = (searchText) => {
     let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
     return(
       <div>
-      <PlayerOneTiles player1={this.state.player1} textResult={this.state.textResult} addText={this.addText} deleteText={this.deleteText}/>  
+      <PlayerOneTiles player={this.state.player} textResult={this.state.textResult} addText={this.addText} deleteText={this.deleteText}/>  
       <Divider hidden />
-      <Form>
+      <Form onSubmit={this.search}>
         <Form.Field>
-          <Modal trigger={<Button size='large' inverted color='green' type='submit' onClick={() =>this.search(this.state.searchText)}>Submit</Button>} >
+          <Modal trigger={<Button size='large' inverted color='green' type='submit' >Submit</Button>} >
             <Modal.Content>
               <center><h1>{errorMsg}</h1></center>
             </Modal.Content>
@@ -102,15 +115,6 @@ search = (searchText) => {
 }
 
 
-let newAlpha= ""
-data.forEach((elem)=>(
-  newAlpha = newAlpha + elem.name
-))
-let total = 0
-data.forEach((elem)=>(
-  total = total+ elem.value
-))
-console.log(newAlpha)
-console.log(total)
+
 
 export default Board

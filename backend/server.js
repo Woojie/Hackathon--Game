@@ -419,6 +419,8 @@ let bag = [{
 
 
 let player1 = []
+let player2 = []
+
  
 let score= {
     player1: {name:'Wooj', score:0},
@@ -429,6 +431,7 @@ let score= {
 let usedStuff =[]
 
 
+
 app.get('/', (req, res) => {
     res.json(bag)
 })
@@ -437,19 +440,26 @@ app.get('/scores', (req, res) => {
     res.json(score )
 })
 
+
  app.post('/',(req, res) => {
-     if (startGame= true){
+    player1 = []
     for (let i = 0 ;i< 7; i++)
     player1 = player1.concat(bag.splice(Math.floor(Math.random()*bag.length),1))
-}
 
- })
+})
+
+app.post('/scores', (req, res) =>{
+
+  score.player1.score += req.body.score
+
+
+})
 
 app.get('/player1', (req, res) => {
     res.json(player1)
 })
 
 app.get('/player2', (req, res) => {
-    res.json(bags)
+    res.json(player2)
 })
 
