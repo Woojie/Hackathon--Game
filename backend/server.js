@@ -411,13 +411,9 @@ let bag = [{
     name: 'Z',
     value: 10
   },
-  
   ]
   
   
-
-
-
 
   
 
