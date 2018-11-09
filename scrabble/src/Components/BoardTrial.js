@@ -15,7 +15,7 @@ class BoardTrial extends Component {
     for(let i = 0; i <= rowsLength-1; i++){
       actualBoard[i] = []
       for (let j = 0; j <= columnLength-1; j++ ){
-      actualBoard[i][j] = <Grid.Column ><Button size='large' inverted onClick={()=>this.onBoardClick(i,j)}/></Grid.Column>
+      actualBoard[i][j] = <Grid.Column ><Button size='large' inverted color="red" onClick={()=>this.onBoardClick(i,j)}/></Grid.Column>
       }
     }
     return actualBoard
