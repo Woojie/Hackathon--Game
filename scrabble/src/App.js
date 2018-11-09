@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Board from'./Components/Board'
 import Score from'./Components/Score'
-import PlayerOneTiles from './Components/PlayerOneTiles'
+
 
 import { Header } from 'semantic-ui-react'
 
@@ -13,7 +13,7 @@ class App extends Component {
         <Header as='h1'>Urban Scrabble!  <Score /></Header>
 
         <Board />
-        <PlayerOneTiles />
+
       </div>
     );
   }

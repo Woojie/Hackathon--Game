@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Form, Button, Modal, Icon } from 'semantic-ui-react'
+import { Form, Button, Modal} from 'semantic-ui-react'
 import axios from 'axios'
-
+import PlayerOneTiles from './PlayerOneTiles'
 
 class Board extends Component {
   state = {
@@ -59,7 +59,7 @@ search = (searchText) => {
         
       </Form>
   
-
+        <PlayerOneTiles />  
       </div>
     )
   }
