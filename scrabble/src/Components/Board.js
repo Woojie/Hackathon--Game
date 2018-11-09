@@ -5,6 +5,7 @@ import PlayerOneTiles from './PlayerOneTiles'
 import Score from'./Score'
 import EndGame from'./EndGame'
 import Tutorial from './tutorial'
+import HighScores from './HighScores'
 
 class Board extends Component {
   state = {
@@ -137,12 +138,15 @@ ifTrue= (data) =>{
   let total = 0
   this.state.textResult.forEach((elem)=>(
     total = total + elem.value
+    
   ))
+
   if(turn === 3 || turn === 4 || turn === 10 || turn ===11){
     total = total * 2
   }else if(turn === 7 || turn === 8){
     total =total*3
   }
+  
   if (this.state.currentPlayer ==='player1'){
     this.setState({
       info: data,
@@ -156,7 +160,8 @@ ifTrue= (data) =>{
     this.setState({
       info: data,
       currentPlayer: newPlayer,
-      player2Count: this.state.player2Count + total
+      player2Count: this.state.player2Count + total,
+      total,
     }, () =>{this.clearData()}
     )}
 }
@@ -257,7 +262,7 @@ clearData = () => {
       <Popup 
       trigger={<Button inverted basic color='purple' floated="left">High Scores</Button>}
       position='bottom-left' >
-          <Tutorial />
+          <HighScores />
       </Popup>
       </div>
     )
