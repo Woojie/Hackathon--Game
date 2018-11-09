@@ -206,7 +206,7 @@ clearData = () => {
 
     return(
       <div>
-      <Score currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} bag={bag} />
+      <Score currentPlayer={currentPlayer} player1Count={player1Count} player2Count={player2Count} bag={bag} turn={turn} />
       
       <PlayerOneTiles player1={player1} player2={player2} textResult={textResult} addText={this.addText} currentPlayer={currentPlayer} deleteText={this.deleteText}/> 
  
