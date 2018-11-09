@@ -10,24 +10,24 @@ state={
 componentDidMount(){
   axios.get('http://localhost:8080/scores')
   .then((res)=>{
-
     this.setState({player1 : res.data.player1, player2:res.data.player2})
   })
 }
 render(){
+  let {player1, player2} = this.state
   return(
     <div>
     <Statistic.Group>
       <Statistic>
-        <Statistic.Value>{this.state.player1.score}</Statistic.Value>
-        <Statistic.Label>{this.state.player1.name}</Statistic.Label>
+        <Statistic.Value>{player1.score}</Statistic.Value>
+        <Statistic.Label>{player1.name}</Statistic.Label>
       </Statistic>
       <Statistic>
-        <Statistic.Value>{this.state.player2.score}</Statistic.Value>
-        <Statistic.Label>{this.state.player2.name}</Statistic.Label>
+        <Statistic.Value>{player2.score}</Statistic.Value>
+        <Statistic.Label>{player2.name}</Statistic.Label>
       </Statistic>
     </Statistic.Group>
-    <Header as='h2'>{this.state.player1.name}'s turn.</Header>
+    <Header as='h2'>{this.props.currentPlayer === 'player1' ?player1.name:player2.name}'s turn.</Header>
     </div>
   )
 }

@@ -418,13 +418,23 @@ let bag = [{
   
 
 
-let player1 = []
-let player2 = []
+let player1 = {
+name: 'Wooj', 
+score:0,
+bag:[]
+
+}
+let player2 = {
+  name: 'Neha', 
+  score:0,
+  bag:[]
+  
+  }
 
  
 let score= {
     player1: {name:'Wooj', score:0},
-    player2: {name:'Neha', score: 0}
+    player2: {name:'Neha', score:0}
 }
 
 
@@ -442,16 +452,27 @@ app.get('/scores', (req, res) => {
 
 
  app.post('/',(req, res) => {
-    player1 = []
+   if (req.body.player === 'player2'){
+    player2.bag = []
     for (let i = 0 ;i< 7; i++)
-    player1 = player1.concat(bag.splice(Math.floor(Math.random()*bag.length),1))
-
+    player2.bag = player2.bag.concat(bag.splice(Math.floor(Math.random()*bag.length),1))
+    
+  }else{
+    player1.bag = []
+    for (let i = 0 ;i< 7; i++)
+    player1.bag = player1.bag.concat(bag.splice(Math.floor(Math.random()*bag.length),1))
+  }
+console.log(bag.length)
 })
 
 app.post('/scores', (req, res) =>{
-
-  score.player1.score += req.body.score
-
+  if(req.body.player === 'player1'){
+    player2.score += req.body.score  
+    console.log('player2: '+player2.score)
+  }else{
+    player1.score += req.body.score
+    console.log('player1: '+player1.score)
+  }
 
 })
 
