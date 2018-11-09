@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Form, Button, Header, Modal } from 'semantic-ui-react'
+import { Form, Button, Modal, Icon } from 'semantic-ui-react'
 import axios from 'axios'
+
 
 class Board extends Component {
   state = {
@@ -17,7 +18,7 @@ class Board extends Component {
     
       axios.get('http://localhost:8080/player1')
     .then((res)=>{
-      console.log(res)
+
     }))
 
   }
@@ -39,25 +40,26 @@ search = (searchText) => {
       })
   })
 }
+
   render(){
     let errorMsg = this.state.wordExist ? 'Great Word!' : 'Oops Word does not exist, Please Try Again!'
     return(
       <div>
       <Form>
         <Form.Field>
-          <label>Write your word down!</label><input type='text' error onChange={this.getSearch} />
-          <Modal trigger={<Button type='submit' onClick={() =>this.search(this.state.searchText)}>Click</Button>} basic>
+          <label>Write your word down!</label><input type='text' onChange={this.getSearch} />
+          <Modal trigger={<Button type='submit' onClick={() =>this.search(this.state.searchText)}>Click</Button>} >
             <Modal.Content>
-              {errorMsg}
+              <center><h1>{errorMsg}</h1></center>
             </Modal.Content>
+
           </Modal>
 
         </Form.Field>
         
       </Form>
   
-      <Header as='h1'>{this.state.text}</Header>
-      Does the word exist? {this.state.wordExist}
+
       </div>
     )
   }
