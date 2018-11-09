@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
         <Header as='h1'>Urban Scrabble! </Header>
 
-        <Board />
+        <Board bag={this.props.bag}/>
 
       </div>
     );
