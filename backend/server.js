@@ -15,13 +15,13 @@ app.use(cors())
 
 let users = [
   {
-    name: 'Mathew',
+    name: 'Jonathan',
     highScore:0,
     score: []
   },
 
 {
-    name: 'Neha',
+    name: 'Brad',
     highScore:0,
     score: []
   }

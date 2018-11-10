@@ -7,7 +7,7 @@ const EndGame = ({player1Count, player2Count}) =>{
     player1Score: player1Count,
     player2Score: player2Count
   })
-  let winner = player1Count > player2Count ? 'Mathew':"Neha"
+  let winner = player1Count > player2Count ? 'Jonathan':"Brad"
   return(
   <div>
   <Modal.Content>
@@ -16,7 +16,7 @@ const EndGame = ({player1Count, player2Count}) =>{
   <Segment raised > 
   <center>
     <Header as='h3' id="winnerStyle">Yippie!! {winner} has won!!</Header>
-    <Header as='h4' id="winnerStyle1">Mathew's score: {player1Count} & Neha's score: {player2Count} </Header>
+    <Header as='h4' id="winnerStyle1">Jonathan's score: {player1Count} & Brad's score: {player2Count} </Header>
     </center>
   </Segment>
  <Button size='large' floated='right' color='green' onClick={()=>window.location.reload()} inverted>
